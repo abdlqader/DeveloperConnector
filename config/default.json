@@ -1,0 +1,4 @@
+{
+  "mongoURI": "mongodb+srv://medo:1234@mern.gyiyl.mongodb.net/<dbname>?retryWrites=true&w=majority",
+  "jwtSecret": "jwtSecretKey"
+}
