@@ -1,7 +1,10 @@
 import React, { Fragment, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
+import { connect } from "react-redux";
+import { login } from "../../actions/auth";
+import PropTypes from "prop-types";
 
-export const Login = () => {
+export const Login = ({ login, isAuthenticated }) => {
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -14,8 +17,13 @@ export const Login = () => {
 
   const onSubmit = (e) => {
     e.preventDefault();
-    console.log("success");
+    login({ email, password });
   };
+
+  if (isAuthenticated) {
+    return <Redirect to="/dashboard" />;
+  }
+
   return (
     <Fragment>
       <h1 className="large text-primary">Sign In</h1>
@@ -32,10 +40,6 @@ export const Login = () => {
             onChange={(e) => onChange(e)}
             required
           />
-          <small className="form-text">
-            This site uses Gravatar so if you want a profile image, use a
-            Gravatar email
-          </small>
         </div>
         <div className="form-group">
           <input
@@ -47,7 +51,7 @@ export const Login = () => {
             onChange={(e) => onChange(e)}
           />
         </div>
-        <input type="submit" className="btn btn-primary" value="Register" />
+        <input type="submit" className="btn btn-primary" value="Login" />
       </form>
       <p className="my-1">
         Don't have an account? <Link to="/register">Sign Up</Link>
@@ -55,4 +59,13 @@ export const Login = () => {
     </Fragment>
   );
 };
-export default Login;
+Login.protoTypes = {
+  login: PropTypes.func.isRequired,
+  isAuthenticated: PropTypes.bool,
+};
+
+const mapStateToProps = (state) => ({
+  isAuthenticated: state.auth.isAuthenticated,
+});
+
+export default connect(mapStateToProps, { login })(Login);
