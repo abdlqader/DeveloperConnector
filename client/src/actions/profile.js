@@ -2,9 +2,11 @@ import {
   CLEAR_PROFILE,
   GET_PROFILE,
   GET_PROFILES,
+  GET_REPOS,
   PROFILE_ERROR,
   UPDATE_PROFILE,
   USER_DELTED,
+  NO_REPOS,
 } from "./types";
 import axios from "axios";
 import { setAlert } from "./alert";
@@ -197,5 +199,20 @@ export const deleteAccount = () => async (dispatch) => {
         payload: { msg: err.response.statusText, status: err.response.status },
       });
     }
+  }
+};
+
+//get github repos
+export const getGithubRepos = (username) => async (dispatch) => {
+  try {
+    const res = await axios.get(`/api/profile/github/${username}`);
+    dispatch({
+      type: GET_REPOS,
+      payload: res.data,
+    });
+  } catch (err) {
+    dispatch({
+      type: NO_REPOS,
+    });
   }
 };
