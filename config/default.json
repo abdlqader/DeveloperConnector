@@ -1,5 +1,0 @@
-{
-  "mongoURI": "mongodb+srv://medo:1234@mern.gyiyl.mongodb.net/<dbname>?retryWrites=true&w=majority",
-  "jwtSecret": "jwtSecretKey",
-  "gitPersonal": "6760f9f1ed6eac27da9af5ebd0041eb666d7d516"
-}
